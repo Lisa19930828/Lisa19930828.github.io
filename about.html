@@ -3,86 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | China Inflatable Decoration Factory & Event Supplies Wholesale Supplier</title>
+    <title>About Us | Joyful Decoration</title>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
-        body { padding-top:70px; background:#f8f8f8; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        html { scroll-padding-top: 70px; }
+        body {
+            color: #333;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* 导航栏：加上汉堡菜单 */
         nav {
-            position:fixed; top:0; width:100%;
-            background:rgba(0,0,0,0.85);
-            padding:15px 0; text-align:center; z-index:999;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 999;
         }
-        nav a {
-            color:#fff; text-decoration:none;
-            margin:0 18px; font-size:16px;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            padding: 0 20px;
+            position: relative;
         }
-        nav a:hover { color:#ffd700; }
-        .container { max-width:900px; margin:0 auto; padding:60px 20px; }
-        h1 {
-            text-align:center; font-size:30px;
-            color:#222; margin-bottom:30px;
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
         }
-        .content {
-            background:#fff; padding:30px;
-            border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.08);
-            line-height:1.8; color:#555;
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
-        footer {
-            background:#222; color:#fff;
-            text-align:center; padding:30px 20px;
-            margin-top:60px;
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
         }
-        footer a { color:#ffd700; text-decoration:none; margin:0 10px; }
+        .nav-menu a.active {
+            color: #ff6b81;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+        }
+        @media (max-width:768px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(0,0,0,0.95);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                gap: 25px;
+                display: none;
+            }
+            .nav-menu.show { display: flex; }
+        }
+
+        /* 主内容区：背景改为统一的 bg.jpg */
+        .about-section {
+            background: url("images/bg.jpg") center/cover no-repeat;
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 60px;
+        }
+        .about-card {
+            background: rgba(255,255,255,0.9);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .about-card h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #222;
+        }
+        .about-card p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #444;
+            text-align: left;
+        }
+
+        /* WhatsApp悬浮按钮 */
         .whatsapp-float {
-            position:fixed; bottom:20px; right:20px;
-            background:#25d366; color:white; border-radius:50%;
-            width:60px; height:60px; font-size:30px;
-            display:flex; align-items:center; justify-content:center;
-            box-shadow:0 4px 10px rgba(0,0,0,0.2); z-index:9999;
-            text-decoration:none;
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            text-decoration: none;
         }
-        /* 隐身SEO */
-        .seo-hidden {
-            color:#f8f8f8; font-size:1px;
-            line-height:1px; height:1px;
-            overflow:hidden; margin:0; padding:0;
+
+        /* 页脚 */
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            margin: 0 10px;
         }
     </style>
 </head>
 <body>
+    <!-- 导航栏 -->
     <nav>
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact Us</a>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Joyful Decoration</a>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="container">
-        <h1>About Our Company</h1>
-        <div class="content">
-            <p>Joyful Decoration is a professional China factory specializing in inflatable decoration, wedding party supplies, holiday celebration decor and commercial event display props.</p>
-            <br>
-            <p>We supply full series of inflatable mirror balloon, decorative inflatable model, wedding ornament, birthday party decor, Christmas & Halloween holiday supplies, and shopping mall commercial event layout products.</p>
-            <br>
-            <p>We support wholesale, bulk order, OEM ODM custom service, low MOQ and worldwide shipping. With strict quality control and professional export service, we are your reliable long-term partner for all event and festival decoration needs.</p>
+    <!-- 关于我们内容区 -->
+    <section class="about-section">
+        <div class="about-card">
+            <h1>About Us</h1>
+            <p>Joyful Decoration is a professional supplier specializing in inflatable mirror balloons and party decorations. We focus on design, production, and wholesale of high-quality inflatable mirror balloons for weddings, events, and commercial displays worldwide.</p>
+            <p>With years of experience in the inflatable decoration industry, we ensure every product meets strict quality standards, using durable and high-reflective materials to create stunning visual effects. Whether you need standard products or custom solutions, we provide fast response and reliable service.</p>
+            <p>Our mission is to make every event more shiny and memorable, helping customers around the world create unforgettable experiences with our products.</p>
         </div>
+    </section>
 
-        <!-- 隐身SEO -->
-        <div class="seo-hidden">
-            China inflatable decoration manufacturer, professional inflatable mirror balloon factory, wedding party event decoration wholesale supplier, holiday festival inflatable decor OEM ODM, mall commercial display inflatable supplies export
-        </div>
-    </div>
-
+    <!-- 页脚（已修正Shanshan的号码） -->
     <footer>
         <p>
-            <a href="https://wa.me/8617610999769?text=Welcome%20to%20Joyful%20Decoration%2C%20this%20is%20Lisa" target="_blank">WhatsApp</a> |
-            <a href="mailto:1255527934@qq.com">Email</a> |
+            <a href="mailto:lisa@joyfuldecoration.com">Email Us</a> |
+            <a href="https://wa.me/8617610999769" target="_blank">WhatsApp Lisa</a> |
+            <a href="https://wa.me/8613161003306" target="_blank">WhatsApp Shanshan</a> |
             <a href="contact.html">Contact Us</a>
         </p>
-        <p style="margin-top:15px; font-size:14px;">© 2026 Joyful Decoration. All Rights Reserved.</p>
+        <p style="margin-top:15px">© 2026 Joyful Decoration. All Rights Reserved.</p>
     </footer>
 
-    <a href="https://wa.me/8617610999769?text=Welcome%20to%20Joyful%20Decoration%2C%20this%20is%20Lisa" target="_blank" class="whatsapp-float">💬</a>
-    <script src="//code.tidio.co/h9vhmiblehno7adhhqj5m0tmwvcsjvfo.js" async></script>
+    <!-- WhatsApp悬浮按钮 -->
+    <a href="https://wa.me/8617610999769" target="_blank" class="whatsapp-float">💬</a>
+
+    <!-- 汉堡菜单JS（含点击外部关闭） -->
+    <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('show');
+    });
+
+    // 点击其他区域自动关闭菜单
+    document.addEventListener('click', () => {
+        navMenu.classList.remove('show');
+    });
+    navMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    </script>
+
+    <!-- Tidio客服脚本 -->
+    <script src="//code.tidio.co/h9vhmiblehno7adhhqi5m0tmwvcsjvfo.js" async></script>
 </body>
 </html>

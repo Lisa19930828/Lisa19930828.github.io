@@ -6,8 +6,11 @@
     <title>All Products | Joyful Decoration</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        html {
+            scroll-padding-top: 80px;
+        }
         body {
-            background: url('images/bg.jpg') center center / cover no-repeat fixed;
+            background: url('images/bg.jpg') center center / cover no-repeat;
             background-color: #f8f8f8;
             color: #333;
             line-height: 1.6;
@@ -16,25 +19,86 @@
             flex-direction: column;
         }
 
-        /* 导航栏 */
+        /* 统一黑色导航栏 */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(0,0,0,0.85);
-            padding: 15px 0;
-            text-align: center;
+            background: #000;
             z-index: 999;
         }
-        nav a {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            padding: 0 20px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
             color: #fff;
             text-decoration: none;
-            margin: 0 18px;
-            font-size: 16px;
+            white-space: nowrap;
         }
-        nav a:hover { color: #ffd700; }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .nav-menu a.active {
+            color: #ff6b81;
+            font-weight: bold;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+        }
 
-        /* 主体布局：左侧菜单 + 右侧内容 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: #000;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                gap: 25px;
+                display: none;
+            }
+            .nav-menu.show {
+                display: flex;
+            }
+            .nav-menu a {
+                font-size: 18px;
+            }
+        }
+
+        /* 主体布局 */
         .main-wrapper {
             display: flex;
             max-width: 1400px;
@@ -61,12 +125,8 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #f87a8c;
         }
-        .category-menu {
-            list-style: none;
-        }
-        .menu-item {
-            margin-bottom: 10px;
-        }
+        .category-menu { list-style: none; }
+        .menu-item { margin-bottom: 10px; }
         .menu-item a {
             display: block;
             padding: 10px 15px;
@@ -85,9 +145,7 @@
             margin-top: 5px;
             display: none;
         }
-        .submenu.active {
-            display: block;
-        }
+        .submenu.active { display: block; }
         .submenu li a {
             padding: 8px 15px;
             font-size: 14px;
@@ -103,12 +161,8 @@
         }
 
         /* 右侧内容区 */
-        .content {
-            flex: 1;
-        }
-        .container {
-            width: 100%;
-        }
+        .content { flex: 1; }
+        .container { width: 100%; }
 
         .page-title {
             text-align: center;
@@ -153,39 +207,59 @@
 
         .product-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s ease;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
         }
+
         .product-card img {
             width: 100%;
-            height: 240px;
+            height: 260px;
             object-fit: cover;
+            object-position: center;
+            background: #f5f5f5;
+            display: block;
         }
+
         .product-info {
-            padding: 20px;
+            padding: 20px 16px 24px;
             text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-top: 1px solid #f0f0f0;
         }
         .product-info h3 {
             font-size: 18px;
+            font-weight: 600;
             margin-bottom: 12px;
             color: #222;
         }
         .product-info a {
             display: inline-block;
-            padding: 8px 16px;
-            background: #f87a8c;
-            color: white;
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid #f87a8c;
+            color: #f87a8c;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 30px;
             font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
         .product-info a:hover {
-            background: #f65a6f;
+            background: #f87a8c;
+            color: white;
+            border-color: #f87a8c;
         }
 
         footer {
@@ -202,28 +276,99 @@
             margin: 0 10px;
         }
 
+        /* 移动端优化：保留侧边栏但调整布局 */
         @media (max-width: 768px) {
             .main-wrapper {
                 flex-direction: column;
+                padding: 12px;
             }
             .sidebar {
                 width: 100%;
                 position: static;
+                margin-bottom: 20px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                padding: 16px;
+            }
+            .product-card img {
+                height: 220px;
+            }
+            .product-info {
+                padding: 12px 10px 16px;
+            }
+            .product-info h3 {
+                font-size: 14px;
+            }
+            .product-info a {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .category-title {
+                font-size: 22px;
+                margin: 30px 0 15px;
             }
         }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .product-card img {
+                height: 240px;
+            }
+            .product-info h3 {
+                font-size: 16px;
+            }
+        }
+
+        .whatsapp-landing-btn {
+            position: fixed;
+            right: 24px;
+            bottom: 100px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 9999;
+            text-decoration: none;
+        }
+        .whatsapp-landing-btn img {
+            width: 28px;
+            height: 28px;
+        }
     </style>
+    <meta name="description" content="Wholesale mirror balloons for sale: round, egg-shaped and special shape reflective balloons, perfect for wedding, disco party, nightclub and holiday decoration. Custom sizes and colors available.">
 </head>
 <body>
 
 <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact Us</a>
+  <div class="nav-container">
+    <a href="index.html" class="logo">Joyful Decoration</a>
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html" class="active">Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
 </nav>
 
 <div class="main-wrapper">
-    <!-- 左侧菜单栏 -->
     <aside class="sidebar">
         <h3 class="sidebar-title">Product Categories</h3>
         <ul class="category-menu">
@@ -267,7 +412,6 @@
         </ul>
     </aside>
 
-    <!-- 右侧内容区 -->
     <main class="content">
         <div class="container">
             <h1 class="page-title">Joyful Decoration</h1>
@@ -277,42 +421,42 @@
             <h2 class="category-title" id="mirror-balloons">Round Mirror Balloons</h2>
             <div class="product-grid">
                 <div class="product-card" id="gold">
-                    <img src="images/gold/product/product-1.jpg" alt="Gold Mirror Balloon">
+                    <img src="images/gold/product/product-1.jpg" alt="Gold Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Gold Mirror Balloon</h3>
                         <a href="gold.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="silver">
-                    <img src="images/silver/product/product-1.jpg" alt="Silver Mirror Balloon">
+                    <img src="images/silver/product/product-1.jpg" alt="Silver Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Silver Mirror Balloon</h3>
                         <a href="silver.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="iridescent">
-                    <img src="images/iridescent/product/product-1.jpg" alt="Iridescent Mirror Balloon">
+                    <img src="images/iridescent/product/product-1.jpg" alt="Iridescent Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Iridescent Mirror Balloon</h3>
                         <a href="iridescent.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="red">
-                    <img src="images/red/product/product-1.jpg" alt="Red Mirror Balloon">
+                    <img src="images/red/product/product-1.jpg" alt="Red Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Red Mirror Balloon</h3>
                         <a href="red.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="white">
-                    <img src="images/white/product/product-1.jpg" alt="White Mirror Balloon">
+                    <img src="images/white/product/product-1.jpg" alt="White Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>White Mirror Balloon</h3>
                         <a href="white.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="black">
-                    <img src="images/black/product/product-1.jpg" alt="Black Mirror Balloon">
+                    <img src="images/black/product/product-1.jpg" alt="Black Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Black Mirror Balloon</h3>
                         <a href="black.html">View Details</a>
@@ -324,42 +468,42 @@
             <h2 class="category-title" id="egg-shape">Egg Shape Mirror Balloons</h2>
             <div class="product-grid">
                 <div class="product-card" id="egg-gold">
-                    <img src="images/egg-shape gold/product/product-1.jpg" alt="Gold Egg Mirror Balloon">
+                    <img src="images/egg-shape%20gold/product/product-1.jpg" alt="Gold Egg Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Gold Egg Mirror Balloon</h3>
                         <a href="gold-egg.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="egg-silver">
-                    <img src="images/egg-shape silver/product/product-1.jpg" alt="Silver Egg Mirror Balloon">
+                    <img src="images/egg-shape%20silver/product/product-1.jpg" alt="Silver Egg Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Silver Egg Mirror Balloon</h3>
                         <a href="silver-egg.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="egg-red">
-                    <img src="images/egg-shape red/product/product-1.jpg" alt="Red Egg Mirror Balloon">
+                    <img src="images/egg-shape%20red/product/product-1.jpg" alt="Red Egg Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Red Egg Mirror Balloon</h3>
                         <a href="red-egg.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="egg-blue">
-                    <img src="images/egg-shape blue/product/product-1.jpg" alt="Blue Egg Mirror Balloon">
+                    <img src="images/egg-shape%20blue/product/product-1.jpg" alt="Blue Egg Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Blue Egg Mirror Balloon</h3>
                         <a href="blue-egg.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="egg-green">
-                    <img src="images/egg-shape green/product/product-1.jpg" alt="Green Egg Mirror Balloon">
+                    <img src="images/egg-shape%20green/product/product-1.jpg" alt="Green Egg Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Green Egg Mirror Balloon</h3>
                         <a href="green-egg.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="egg-purple">
-                    <img src="images/egg-shape purple/product/product-1.jpg" alt="Purple Egg Mirror Balloon">
+                    <img src="images/egg-shape%20purple/product/product-1.jpg" alt="Purple Egg Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Purple Egg Mirror Balloon</h3>
                         <a href="purple-egg.html">View Details</a>
@@ -371,49 +515,49 @@
             <h2 class="category-title" id="special-shapes">Special Shape Balloons</h2>
             <div class="product-grid">
                 <div class="product-card" id="heart">
-                    <img src="images/heart/product/product-1.jpg" alt="Heart Mirror Balloon">
+                    <img src="images/heart/product/product-1.jpg" alt="Heart Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Heart Mirror Balloon</h3>
                         <a href="heart-mirror-balloon.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="letters">
-                    <img src="images/mirror letters/product/product-1.jpg" alt="Mirror Letters">
+                    <img src="images/mirror%20letters/product/product-1.jpg" alt="Mirror Letters" loading="lazy">
                     <div class="product-info">
                         <h3>Mirror Letters</h3>
                         <a href="mirror-letters.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="numbers">
-                    <img src="images/mirror numbers/product/product-1.jpg" alt="Mirror Numbers">
+                    <img src="images/mirror%20numbers/product/product-1.jpg" alt="Mirror Numbers" loading="lazy">
                     <div class="product-info">
                         <h3>Mirror Numbers</h3>
                         <a href="mirror-numbers.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="arch">
-                    <img src="images/mirror arch/product-1.jpg" alt="Mirror Arch">
+                    <img src="images/mirror%20arch/product-1.jpg" alt="Mirror Arch" loading="lazy">
                     <div class="product-info">
                         <h3>Mirror Arch</h3>
                         <a href="mirror-arch.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="disco">
-                    <img src="images/disco balloon/product/product-1.png" alt="Disco Mirror Balloon">
+                    <img src="images/disco%20balloon/product/product-1.png" alt="Disco Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Disco Mirror Balloon</h3>
                         <a href="disco-balloon.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="custom">
-                    <img src="images/custom mirror balloon/product/product-1.jpg" alt="Custom Mirror Balloon">
+                    <img src="images/custom%20mirror%20balloon/product/product-1.jpg" alt="Custom Mirror Balloon" loading="lazy">
                     <div class="product-info">
                         <h3>Custom Mirror Balloon</h3>
                         <a href="custom-mirror-balloon.html">View Details</a>
                     </div>
                 </div>
                 <div class="product-card" id="christmas">
-                    <img src="images/christmas ball/product/product-1.jpg" alt="Christmas Mirror Ball">
+                    <img src="images/christmas%20ball/product/product-1.jpg" alt="Christmas Mirror Ball" loading="lazy">
                     <div class="product-info">
                         <h3>Christmas Mirror Ball</h3>
                         <a href="christmas-mirror-ball.html">View Details</a>
@@ -424,15 +568,18 @@
     </main>
 </div>
 
+<a href="whatsapp-landing.html" class="whatsapp-landing-btn" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="客服选择">
+</a>
+
 <footer>
     <p>© 2026 Joyful Decoration All Rights Reserved</p>
     <p>
-        <a href="mailto:lisa@tjfuchen.com">Email Us</a>
-        <a href="https://wa.me/8617610999769">WhatsApp</a>
+        <a href="mailto:lisa@joyfuldecoration.com?subject=Inquiry%20about%20inflatable%20decorations">Email Us</a>
+        <a href="whatsapp-landing.html">WhatsApp</a>
     </p>
 </footer>
 
-<!-- 菜单折叠/展开脚本 -->
 <script>
     const toggleBtns = document.querySelectorAll('.toggle-btn');
     toggleBtns.forEach(btn => {
@@ -442,7 +589,20 @@
             this.textContent = submenu.classList.contains('active') ? '-' : '+';
         });
     });
+
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('show');
+        });
+    });
 </script>
 
+<script src="//code.tidio.co/h9vhmiblehno7adhhqi5m0tmwvcsjvfo.js" async></script>
 </body>
 </html>
