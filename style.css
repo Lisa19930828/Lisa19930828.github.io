@@ -1,28 +1,105 @@
-/* ========== 仅移动端：修复首屏文字截断 + 半透明背景 ========== */
+/* ==============================================
+   基础样式 + 电脑端正常布局（保持您原有设计）
+   ============================================== */
+
+/* 图片自适应（安全） */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 全局盒模型 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 桌面端：换行标签隐藏 */
+.mobile-br {
+  display: none;
+}
+
+/* ==============================================
+   移动端专用修复（≤768px）
+   ============================================== */
 @media (max-width: 768px) {
-  /* 文字外框：半透明白底、圆角、内边距、宽度适配 */
+
+  /* 1. Slogan 两行（关键补上） */
+  .mobile-br {
+    display: inline;
+  }
+
+  /* 2. 所有产品/优势/评价网格强制单列 */
+  .product-grid,
+  .products-row,
+  .why-row,
+  .testi-row,
+  .related-products { /* 补上相关产品 */
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  /* 3. 主要内容区左右留白，避免贴边 */
+  .container,
+  main,
+  .content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* 4. 产品卡片占满父容器宽度 */
+  .product-card,
+  .product-item {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+
+  /* 5. 文字安全换行（防止长单词溢出） */
+  p, h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* 6. 产品图片高度自适应，不裁剪 */
+  .product-card img,
+  .product-item img {
+    height: auto !important;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  /* 7. 首页视频文字框：宽度、内边距、背景半透明、圆角 */
   .hero-text-box {
     width: 90% !important;
     max-width: 90% !important;
     padding: 20px !important;
-    background: rgba(255, 255, 255, 0.85) !important; /* 半透白 */
-    border-radius: 10px !important; /* 圆角更柔和 */
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-radius: 12px !important;
   }
-
-  /* 标题：缩小字号、加大行高，避免上下截断 */
   .hero-text-box h1 {
     font-size: 1.6rem !important;
     line-height: 1.4 !important;
-    word-break: break-word !important;
     margin: 0 0 10px 0 !important;
+    text-align: center;
   }
-
-  /* 描述文字：适中字号、舒适行高 */
   .hero-text-box p {
     font-size: 1rem !important;
     line-height: 1.6 !important;
     margin: 0 !important;
+  }
+
+  /* 8. 表格横向滚动（防止溢出） */
+  table {
+    width: 100% !important;
+    display: block !important;
+    overflow-x: auto !important;
+  }
+
+  /* 9. 防止整页横向滚动（非常关键） */
+  html, body {
+    overflow-x: hidden;
   }
 }
