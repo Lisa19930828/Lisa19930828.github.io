@@ -1,0 +1,51 @@
+/* 基础图片自适应（电脑/手机都安全） */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 只在手机端生效，768px 以下 */
+@media (max-width: 768px) {
+  /* 1. 修复所有网格布局，强制单列 */
+  .product-grid,
+  .products-row,
+  .why-row,
+  .testi-row {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  /* 2. 给主要内容区加安全边距（兼容所有页面，不会影响导航栏） */
+  /* 先给container加边距 */
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  /* 如果页面没有container，就给直接的内容容器加边距 */
+  main, .content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* 3. 产品卡片宽度自动适应父容器 */
+  .product-card,
+  .product-item {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+
+  /* 4. 文字自动换行，避免挤成一团 */
+  p, h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* 5. 产品卡片图片适配（不裁剪，完全显示，高度自适应） */
+  .product-card img {
+    height: auto !important;
+    max-height: none;
+    object-fit: contain;
+  }
+}
