@@ -22,27 +22,27 @@ img {
 }
 
 /* ==============================================
-   移动端专用修复（≤768px）
+   移动端专用修复（≤768px）—— 最终合并完整版
    ============================================== */
 @media (max-width: 768px) {
 
-  /* 1. Slogan 两行（关键修正：改成 block，强制换行） */
+  /* 1. Slogan 两行 */
   .mobile-br {
     display: block;
   }
 
-  /* 2. 所有产品/优势/评价网格强制单列 */
+  /* 2. 所有产品网格强制单列 */
   .product-grid,
   .products-row,
   .why-row,
   .testi-row,
-  .related-products { /* 补上相关产品 */
+  .related-products {
     display: grid;
     grid-template-columns: 1fr !important;
     gap: 1rem;
   }
 
-  /* 3. 主要内容区左右留白，避免贴边 */
+  /* 3. 内容左右留白 */
   .container,
   main,
   .content {
@@ -50,20 +50,20 @@ img {
     padding-right: 16px;
   }
 
-  /* 4. 产品卡片占满父容器宽度 */
+  /* 4. 产品卡片满宽 */
   .product-card,
   .product-item {
     width: 100% !important;
     margin: 0 auto;
   }
 
-  /* 5. 文字安全换行（防止长单词溢出） */
+  /* 5. 文字安全换行 */
   p, h1, h2, h3, h4, h5, h6 {
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
-  /* 6. 产品图片高度自适应，不裁剪 */
+  /* 6. 产品图片自适应 */
   .product-card img,
   .product-item img {
     height: auto !important;
@@ -71,7 +71,7 @@ img {
     object-fit: contain;
   }
 
-  /* 7. 首页视频文字框：宽度、内边距、背景半透明、圆角 */
+  /* 7. 首页文字框优化 */
   .hero-text-box {
     width: 90% !important;
     max-width: 90% !important;
@@ -91,35 +91,45 @@ img {
     margin: 0 !important;
   }
 
-  /* 8. 表格横向滚动（防止溢出） */
-  table {
-    width: 100% !important;
+  /* 8. 左侧菜单强制隐藏（解决内容挤右边） */
+  .fixed-sidebar {
+    display: none !important;
+  }
+
+  /* 9. 产品卡片居中（终极修复） */
+  .product-card {
+    margin: 20px auto !important;
+    max-width: calc(100% - 32px) !important;
+    padding: 20px 16px !important;
+  }
+
+  /* 10. 产品标题强制横排 + 自动换行（终极修复） */
+  .product-card h1,
+  .prod-title h1 {
     display: block !important;
-    overflow-x: auto !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    line-height: 1.4 !important;
+    margin: 0 auto 20px auto !important;
+    color: #222 !important;
   }
 
-  /* 9. 防止整页横向滚动（非常关键） */
-  html, body {
-    overflow-x: hidden;
-  }
-}
-
-/* ==============================================
-   产品详情页表格：移动端横向滚动修复（仅追加，不影响原有布局）
-   ============================================== */
-@media (max-width: 768px) {
-  /* 适配两种情况：有类名的 .product-table / .spec-table，或直接 table */
+  /* 11. 产品表格横向滚动 */
   .product-table,
   .spec-table,
   table {
     width: 100% !important;
     display: block !important;
     overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important; /* iOS 顺滑滚动 */
+    -webkit-overflow-scrolling: touch !important;
     white-space: nowrap !important;
   }
-
-  /* 单元格不换行，防止挤乱 */
   .product-table th,
   .product-table td,
   .spec-table th,
@@ -130,88 +140,9 @@ img {
     padding: 8px 12px !important;
     font-size: 14px !important;
   }
-}
-/* ========== 产品详情页标题强制换行修复（移动端） ========== */
-@media (max-width: 768px) {
-  /* 修复1：表格上方的 product-card h1 */
-  .product-card h1 {
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-    word-wrap: break-word !important;
-    word-break: break-word !important;
-    text-align: center !important;
-    font-size: 20px !important;
-    line-height: 1.4 !important;
-    padding: 0 16px !important;
-    margin: 0 auto 20px auto !important;
-  }
 
-  /* 修复2：页面中部的 prod-title h1 */
-  .prod-title h1 {
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-    word-wrap: break-word !important;
-    word-break: break-word !important;
-    text-align: center !important;
-    font-size: 22px !important;
-    line-height: 1.4 !important;
-    padding: 0 16px !important;
-    margin: 0 auto 10px auto !important;
-  }
-/* ========== 移动端产品详情页 安全终极修复 ========== */
-@media (max-width: 768px) {
-  /* 1. 修正产品卡片位置：解决靠右问题 */
-  .product-card {
-    margin: 20px auto !important;
-    max-width: calc(100% - 32px) !important;
-    padding: 20px 16px !important;
-  }
-
-  /* 2. 修复表格上方的标题，不重置无关样式 */
-  .product-card h1 {
-    display: block !important;
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-    word-wrap: break-word !important;
-    word-break: break-word !important;
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
-    text-align: center !important;
-    font-size: 20px !important;
-    line-height: 1.4 !important;
-    margin: 0 auto 20px auto !important;
-    color: #222 !important;
-  }
-
-  /* 3. 表格滚动修复 */
-  .product-table {
-    width: 100% !important;
-    display: block !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    white-space: nowrap !important;
-  }
-  .product-table th,
-  .product-table td {
-    white-space: nowrap !important;
-    padding: 8px 12px !important;
-    font-size: 14px !important;
-  }
-
-  /* 4. 修复页面中部标题 */
-  .prod-title h1 {
-    display: block !important;
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-    word-wrap: break-word !important;
-    word-break: break-word !important;
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
-    text-align: center !important;
-    font-size: 22px !important;
-    line-height: 1.4 !important;
-    padding: 0 16px !important;
-    margin: 0 auto 10px auto !important;
-    color: #222 !important;
+  /* 12. 禁止页面横向滚动 */
+  html, body {
+    overflow-x: hidden;
   }
 }
