@@ -158,3 +158,60 @@ img {
     padding: 0 16px !important;
     margin: 0 auto 10px auto !important;
   }
+/* ========== 移动端产品详情页 安全终极修复 ========== */
+@media (max-width: 768px) {
+  /* 1. 修正产品卡片位置：解决靠右问题 */
+  .product-card {
+    margin: 20px auto !important;
+    max-width: calc(100% - 32px) !important;
+    padding: 20px 16px !important;
+  }
+
+  /* 2. 修复表格上方的标题，不重置无关样式 */
+  .product-card h1 {
+    display: block !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    line-height: 1.4 !important;
+    margin: 0 auto 20px auto !important;
+    color: #222 !important;
+  }
+
+  /* 3. 表格滚动修复 */
+  .product-table {
+    width: 100% !important;
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    white-space: nowrap !important;
+  }
+  .product-table th,
+  .product-table td {
+    white-space: nowrap !important;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+  }
+
+  /* 4. 修复页面中部标题 */
+  .prod-title h1 {
+    display: block !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    text-align: center !important;
+    font-size: 22px !important;
+    line-height: 1.4 !important;
+    padding: 0 16px !important;
+    margin: 0 auto 10px auto !important;
+    color: #222 !important;
+  }
+}
