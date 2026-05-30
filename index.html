@@ -82,6 +82,7 @@
             text-align:center;
             max-width:800px;
         }
+        /* 桌面端：保持单行，不换行 */
         .hero-text-box h1 {
             font-size:36px;
             font-weight:bold;
@@ -229,14 +230,49 @@
             font-weight: 500 !important;
             line-height: 1.5 !important;
         }
+
+        /* 桌面端：隐藏换行标签，保持单行 */
+        .mobile-br {
+            display: none;
+        }
+
         @media (max-width:768px) {
             #tidio-chat-iframe {
                 transform: scale(1) !important;
                 bottom: 100px !important;
             }
+
+            /* 移动端标题强制两行：
+               Mirror the World,
+               Reflect the Joy!
+            */
+            .hero-text-box h1 {
+                white-space: normal !important;
+                font-size: 22px !important;
+                line-height: 1.4 !important;
+            }
+            .mobile-br {
+                display: block !important;
+            }
+
+            /* 文字框宽度适配 */
+            .hero-text-box {
+                width: 90% !important;
+                padding: 20px !important;
+            }
+
+            /* 你已修复好的布局，这里保持不变 */
+            .products-row {
+                grid-template-columns: 1fr !important;
+            }
+            .why-row {
+                grid-template-columns: 1fr !important;
+            }
+            .testi-row {
+                grid-template-columns: 1fr !important;
+            }
         }
     </style>
-<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -263,7 +299,7 @@
         <source src="images/front/hero.mp4" type="video/mp4">
     </video>
     <div class="hero-text-box">
-        <h1>Mirror the World, <span class="mobile-br"></span>Reflect the Joy!</h1>
+        <h1>Mirror the World,<span class="mobile-br"></span>Reflect the Joy!</h1>
         <p>Wholesale high-quality inflatable mirror balloons for weddings, parties, and events. Shiny, durable, and customizable to make your occasion unforgettable.</p>
         <a href="products.html" class="btn">View All Products</a>
     </div>
