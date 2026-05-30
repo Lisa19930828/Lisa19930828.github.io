@@ -131,3 +131,30 @@ img {
     font-size: 14px !important;
   }
 }
+/* ========== 产品详情页标题强制换行修复（移动端） ========== */
+@media (max-width: 768px) {
+  /* 修复1：表格上方的 product-card h1 */
+  .product-card h1 {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    line-height: 1.4 !important;
+    padding: 0 16px !important;
+    margin: 0 auto 20px auto !important;
+  }
+
+  /* 修复2：页面中部的 prod-title h1 */
+  .prod-title h1 {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    text-align: center !important;
+    font-size: 22px !important;
+    line-height: 1.4 !important;
+    padding: 0 16px !important;
+    margin: 0 auto 10px auto !important;
+  }
