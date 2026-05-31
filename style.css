@@ -153,29 +153,36 @@ img {
   }
 
   /* ======================
-     【右下角悬浮：解决重叠】
+     【终极修复：全站悬浮不重叠】
+     支持：whatsapp-float + whatsapp-landing-btn
      顺序：视频 → Tawk → WhatsApp
-     通用匹配：所有包含 tawk 的元素都生效
      ====================== */
   /* WhatsApp 按钮：最底部 */
-  .whatsapp-float {
+  .whatsapp-float,
+  .whatsapp-landing-btn {
+    position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
-    z-index: 9999 !important;
+    z-index: 99999 !important;
   }
 
-  /* Tawk.to 聊天图标：通用匹配，所有页面生效 */
-  [class*="tawk"], [id*="tawk"] {
+  /* Tawk.to 客服：中间 */
+  div[id*="tawk"],
+  iframe[id*="tawk"],
+  .tawk-min-chat-widget,
+  #tawkchat-minified-widget {
+    position: fixed !important;
     bottom: 90px !important;
     right: 20px !important;
-    z-index: 9998 !important;
+    z-index: 99998 !important;
   }
 
   /* 悬浮视频：最上方 */
   .float-video-box {
+    position: fixed !important;
     bottom: 160px !important;
     right: 20px !important;
-    z-index: 9997 !important;
+    z-index: 99997 !important;
   }
 }
 
