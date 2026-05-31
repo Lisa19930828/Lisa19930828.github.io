@@ -165,3 +165,23 @@ img {
     padding: 2px 4px !important;
   }
 }
+@media (max-width: 768px) {
+    /* 1. WhatsApp 按钮：放在最底部 */
+    .whatsapp-float {
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+
+    /* 2. Tawk.to 聊天图标：放在 WhatsApp 按钮上方 */
+    #tawkchat-minified-widget,
+    .tawk-min-chat-widget {
+        bottom: 90px !important;
+        right: 20px !important;
+    }
+
+    /* 3. 悬浮视频：放在最上方，避开聊天图标 */
+    .float-video-box {
+        bottom: 160px !important;
+        right: 20px !important;
+    }
+}
