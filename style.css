@@ -1,19 +1,16 @@
 /* ==============================================
-   基础样式 + 电脑端正常布局（保持您原有设计）
+   基础样式 + 电脑端正常布局（保持原有设计）
    ============================================== */
-
-/* 图片自适应（安全） */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* 全局盒模型 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* 桌面端：换行标签隐藏 */
@@ -22,16 +19,23 @@ img {
 }
 
 /* ==============================================
-   移动端专用修复（≤768px）—— 最终合并完整版
+   移动端 主断点 ≤768px（合并所有规则）
    ============================================== */
 @media (max-width: 768px) {
-
   /* 1. Slogan 两行 */
   .mobile-br {
     display: block;
   }
 
-  /* 2. 所有产品网格强制单列 */
+  /* 2. 全局左右留白 */
+  .container,
+  main,
+  .content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* 3. 产品类网格强制单列 */
   .product-grid,
   .products-row,
   .why-row,
@@ -42,19 +46,13 @@ img {
     gap: 1rem;
   }
 
-  /* 3. 内容左右留白 */
-  .container,
-  main,
-  .content {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  /* 4. 产品卡片满宽 */
+  /* 4. 产品卡片满宽居中 */
   .product-card,
   .product-item {
     width: 100% !important;
-    margin: 0 auto;
+    margin: 20px auto !important;
+    max-width: calc(100% - 32px) !important;
+    padding: 20px 16px !important;
   }
 
   /* 5. 文字安全换行 */
@@ -76,7 +74,7 @@ img {
     width: 90% !important;
     max-width: 90% !important;
     padding: 20px !important;
-    background: rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255,255,255,0.85) !important;
     border-radius: 12px !important;
   }
   .hero-text-box h1 {
@@ -91,19 +89,12 @@ img {
     margin: 0 !important;
   }
 
-  /* 8. 左侧菜单强制隐藏（解决内容挤右边） */
+  /* 8. 左侧菜单隐藏 */
   .fixed-sidebar {
     display: none !important;
   }
 
-  /* 9. 产品卡片居中（终极修复） */
-  .product-card {
-    margin: 20px auto !important;
-    max-width: calc(100% - 32px) !important;
-    padding: 20px 16px !important;
-  }
-
-  /* 10. 产品标题强制横排 + 自动换行（终极修复） */
+  /* 9. 产品标题强制横排居中 */
   .product-card h1,
   .prod-title h1 {
     display: block !important;
@@ -120,7 +111,7 @@ img {
     color: #222 !important;
   }
 
-  /* 11. 产品表格横向滚动 */
+  /* 10. 表格横向滚动 */
   .product-table,
   .spec-table,
   table {
@@ -141,8 +132,36 @@ img {
     font-size: 14px !important;
   }
 
-  /* 12. 禁止页面横向滚动 */
+  /* 11. 禁止页面横向滚动 */
   html, body {
     overflow-x: hidden;
+  }
+
+  /* ======================
+     【针对 gold.html 导航】
+     导航强制一行、不折行
+     ====================== */
+  nav {
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    padding: 12px 10px !important;
+    gap: 2px !important;
+  }
+  nav a {
+    font-size: 13px !important;
+    padding: 2px 6px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* ==============================================
+   超窄屏后备适配 ≤320px（极端小手机）
+   ============================================== */
+@media (max-width: 320px) {
+  nav a {
+    font-size: 12px !important;
+    padding: 2px 4px !important;
   }
 }
