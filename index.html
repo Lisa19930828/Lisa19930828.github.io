@@ -82,7 +82,6 @@
             text-align:center;
             max-width:800px;
         }
-        /* 桌面端：保持单行，不换行 */
         .hero-text-box h1 {
             font-size:36px;
             font-weight:bold;
@@ -219,33 +218,13 @@
         }
         footer a {color:#ffd700;margin:0 10px;text-decoration:none;font-size:17px;}
 
-         {
-            transform: scale(1.3) !important;
-            transform-origin: bottom right !important;
-            right: 10px !important;
-            bottom: 180px !important;
-        }
-        .-widget-side-button {
-            font-size: 16px !important;
-            font-weight: 500 !important;
-            line-height: 1.5 !important;
-        }
-
         /* 桌面端：隐藏换行标签，保持单行 */
         .mobile-br {
             display: none;
         }
 
         @media (max-width:768px) {
-             {
-                transform: scale(1) !important;
-                bottom: 100px !important;
-            }
-
-            /* 移动端标题强制两行：
-               Mirror the World,
-               Reflect the Joy!
-            */
+            /* 移动端标题强制两行 */
             .hero-text-box h1 {
                 white-space: normal !important;
                 font-size: 22px !important;
@@ -261,7 +240,6 @@
                 padding: 20px !important;
             }
 
-            /* 你已修复好的布局，这里保持不变 */
             .products-row {
                 grid-template-columns: 1fr !important;
             }
@@ -271,6 +249,17 @@
             .testi-row {
                 grid-template-columns: 1fr !important;
             }
+        }
+
+        /* ==============================================
+           强制 WhatsApp 左下角（仅追加，不改动你原有样式）
+           ============================================== */
+        .whatsapp-float {
+            position: fixed !important;
+            left: 20px !important;
+            bottom: 20px !important;
+            right: auto !important;
+            z-index: 9999999 !important;
         }
     </style>
 </head>
@@ -382,7 +371,7 @@
 <footer>
     <p>
         <a href="mailto:lisa@joyfuldecoration.com">Email Us</a> |
-        <a href="https://wa.me/8617610999769" target="_blank">WhatsApp</a> |
+        <a href="whatsapp-landing.html" target="_blank">WhatsApp</a> |
         <a href="contact.html">Contact Us</a>
     </p>
     <p style="margin-top:15px">© 2026 Joyful Decoration. All Rights Reserved.</p>
@@ -397,8 +386,6 @@ hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('show');
 });
 </script>
-
-
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">

@@ -1,4 +1,6 @@
-/* 全局基础样式 */
+/* ==============================================
+   全局基础样式
+   ============================================== */
 * {
   margin: 0;
   padding: 0;
@@ -13,74 +15,149 @@ img {
   display: none;
 }
 
-/* ========== 核心：WhatsApp 强制左下角，全局生效 ========== */
+/* ==============================================
+   WhatsApp 强制左下角（电脑+手机全局生效）
+   ============================================== */
 .whatsapp-float,
 .whatsapp-landing-btn {
   position: fixed !important;
   left: 20px !important;
   bottom: 20px !important;
   right: auto !important;
-  z-index: 9999999 !important; /* 最高层级，永不被遮挡 */
+  z-index: 9999999 !important;
 }
 
-/* ========== 移动端适配 ========== */
+/* ==============================================
+   移动端适配（保留所有必要修复，不破坏布局）
+   ============================================== */
 @media (max-width: 768px) {
   .mobile-br {
     display: block;
   }
+
+  /* 左右留白 */
   .container, main, .content {
     padding-left: 16px;
     padding-right: 16px;
   }
+
+  /* 产品/优势/评价网格强制单列 */
   .product-grid,
   .products-row,
   .why-row,
   .testi-row,
   .related-products {
+    display: grid;
     grid-template-columns: 1fr !important;
+    gap: 1rem;
   }
+
+  /* 产品卡片满宽居中 */
   .product-card,
   .product-item {
     width: 100% !important;
+    margin: 20px auto !important;
+    max-width: calc(100% - 32px) !important;
+    padding: 20px 16px !important;
   }
+
+  /* 文字安全换行 */
   p, h1, h2, h3, h4, h5, h6 {
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
+
+  /* 产品图片自适应 */
+  .product-card img,
+  .product-item img {
+    height: auto !important;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  /* 首页文字框优化 */
   .hero-text-box {
     width: 90% !important;
+    max-width: 90% !important;
     padding: 20px !important;
+    background: rgba(255,255,255,0.85) !important;
+    border-radius: 12px !important;
   }
+  .hero-text-box h1 {
+    font-size: 1.6rem !important;
+    line-height: 1.4 !important;
+    margin: 0 0 10px 0 !important;
+    text-align: center;
+  }
+  .hero-text-box p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+  }
+
+  /* 左侧菜单隐藏 */
   .fixed-sidebar {
     display: none !important;
   }
+
+  /* 产品标题强制横排居中 */
   .product-card h1,
   .prod-title h1 {
+    display: block !important;
+    white-space: normal !important;
+    word-break: break-word !important;
     text-align: center !important;
     font-size: 20px !important;
+    line-height: 1.4 !important;
+    margin: 0 auto 20px auto !important;
+    padding: 0 10px !important;
   }
-  .product-table, table {
+
+  /* 表格横向滚动 */
+  .product-table,
+  .spec-table,
+  table {
+    width: 100% !important;
+    display: block !important;
     overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    white-space: nowrap !important;
   }
+  .product-table th,
+  .product-table td,
+  .spec-table th,
+  .spec-table td,
+  table th,
+  table td {
+    white-space: nowrap !important;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+  }
+
+  /* 禁止页面横向滚动 */
   html, body {
     overflow-x: hidden;
   }
+
+  /* 导航强制一行、不折行 */
   nav {
     display: flex !important;
     justify-content: center !important;
     flex-wrap: nowrap !important;
+    padding: 12px 10px !important;
+    gap: 2px !important;
   }
-
-  /* 视频和 Tawk 错开，解决右下角重叠（可选，加上更稳） */
-  .float-video-box {
-    bottom: 128px !important;
-  }
-  div[id*="tawk"], .tawk-min-chat-widget {
-    bottom: 28px !important;
+  nav a {
+    font-size: 13px !important;
+    padding: 2px 6px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
   }
 }
 
-/* ========== 超小屏适配 ========== */
+/* ==============================================
+   超窄屏后备适配 ≤320px
+   ============================================== */
 @media (max-width: 320px) {
   nav a {
     font-size: 12px !important;
