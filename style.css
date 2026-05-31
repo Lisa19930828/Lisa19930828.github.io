@@ -137,10 +137,7 @@ img {
     overflow-x: hidden;
   }
 
-  /* ======================
-     【针对 gold.html 导航】
-     导航强制一行、不折行
-     ====================== */
+  /* 12. 导航强制一行、不折行 */
   nav {
     display: flex !important;
     justify-content: center !important;
@@ -154,6 +151,32 @@ img {
     margin: 0 !important;
     white-space: nowrap !important;
   }
+
+  /* ======================
+     【右下角悬浮：解决重叠】
+     顺序：视频 → Tawk → WhatsApp
+     通用匹配：所有包含 tawk 的元素都生效
+     ====================== */
+  /* WhatsApp 按钮：最底部 */
+  .whatsapp-float {
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
+  }
+
+  /* Tawk.to 聊天图标：通用匹配，所有页面生效 */
+  [class*="tawk"], [id*="tawk"] {
+    bottom: 90px !important;
+    right: 20px !important;
+    z-index: 9998 !important;
+  }
+
+  /* 悬浮视频：最上方 */
+  .float-video-box {
+    bottom: 160px !important;
+    right: 20px !important;
+    z-index: 9997 !important;
+  }
 }
 
 /* ==============================================
@@ -164,24 +187,4 @@ img {
     font-size: 12px !important;
     padding: 2px 4px !important;
   }
-}
-@media (max-width: 768px) {
-    /* 1. WhatsApp 按钮：放在最底部 */
-    .whatsapp-float {
-        bottom: 20px !important;
-        right: 20px !important;
-    }
-
-    /* 2. Tawk.to 聊天图标：放在 WhatsApp 按钮上方 */
-    #tawkchat-minified-widget,
-    .tawk-min-chat-widget {
-        bottom: 90px !important;
-        right: 20px !important;
-    }
-
-    /* 3. 悬浮视频：放在最上方，避开聊天图标 */
-    .float-video-box {
-        bottom: 160px !important;
-        right: 20px !important;
-    }
 }
