@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thank You | Joy Decoration</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f8f9fa;padding:20px;text-align:center;}
-.box{max-width:600px;background:#fff;padding:50px 30px;border-radius:12px;box-shadow:0 3px 15px #eee;}
-h1{color:#222;margin-bottom:20px;font-size:32px;}
-p{color:#555;font-size:17px;line-height:1.7;margin-bottom:35px;}
-.back-home{display:inline-block;padding:14px 32px;background:#2563eb;color:#fff;text-decoration:none;border-radius:6px;font-weight:500;}
-.back-home:hover{background:#1d4ed8;}
-</style>
-<!-- 你的原有GA4全局代码保留不动，下方单独埋generate_lead转化 -->
-<script>
-// 页面加载自动上报询盘转化generate_lead
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('event','generate_lead',{value:0,currency:"USD"});
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | Joy Decoration</title>
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST2HGDTNL7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ST2HGDTNL7');
+        gtag('event','generate_lead',{value:0,currency:"USD"});
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+        body{
+            background:#f7f7f7;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+        .box{
+            max-width:600px;
+            /* 图片路径正好：images/bg.jpg */
+            background:rgba(255,255,255,0.85) url("images/bg.jpg") center/cover no-repeat;
+            padding:50px 30px;
+            border-radius:12px;
+            box-shadow:0 3px 15px #ddd;
+            text-align:center;
+        }
+        h1{color:#222;margin-bottom:20px;font-size:28px;}
+        p{color:#444;font-size:16px;line-height:1.7;margin-bottom:30px;}
+        .back-btn{
+            display:inline-block;
+            padding:12px 30px;
+            background:#2563eb;
+            color:#fff;
+            text-decoration:none;
+            border-radius:6px;
+            transition:0.3s;
+        }
+        .back-btn:hover{background:#1d4ed8;}
+    </style>
 </head>
 <body>
-<div class="box">
-<h1>Thank You for Your Inquiry!</h1>
-<p>Your message has been received successfully.<br>We will review your requirement and reply you within 24 hours.</p>
-<a href="/" class="back-home">Back to Homepage</a>
-</div>
+    <div class="box">
+        <h1>Thank You For Your Inquiry!</h1>
+        <p>We have received your message successfully.<br>Our sales team will contact you within 24 hours via email.</p>
+        <a href="/" class="back-btn">Back To Homepage</a>
+    </div>
 </body>
 </html>
