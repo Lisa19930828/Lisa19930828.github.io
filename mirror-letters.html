@@ -545,5 +545,122 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 <!--End of Tawk.to Script-->
 
+<!-- ==================== 可拖动折叠询价框 ==================== -->
+<div id="floatQuoteBox">
+  <div id="quoteHeaderBar">
+    <span>Quick Quote</span>
+    <button id="foldToggleBtn">+</button>
+  </div>
+  <div id="quoteBodyContent">
+    <select id="colorSelect" onchange="changeColor(this.value)"></select>
+    <select id="sizeSelect"></select>
+    <div style="margin:6px 0;">Price: <b id="unitPrice"></b></div>
+    <input type="number" id="qtyInput" value="1" min="1">
+  <div style="margin:8px 0;">
+    <label>Custom Requirements:</label>
+    <textarea id="customRemark" placeholder="Write your special request here..." style="width:100%;height:60px;"></textarea>
+  </div>
+    <button onclick="addCurrentToQuote()">Add to Quote</button>
+  </div>
+<div id="quoteWrap"></div>
+<p>Total Price: <b id="totalAllPrice"></b></p>
+<button onclick="loadQuote()">View Quote List</button>
+<button onclick="clearQuote()">Clear Quote</button>
+</div>
+
+<style>
+#quoteHeaderBar {
+  background: #333;
+  color: #fff;
+  padding: 9px 12px;
+  font-size:14px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#quoteBodyContent {
+  padding: 12px;
+  display: none;
+}
+#quoteBodyContent select,
+#quoteBodyContent input,
+#quoteBodyContent button {
+  width: 100%;
+  margin: 5px 0;
+  padding: 6px;
+  box-sizing: border-box;
+}
+#foldToggleBtn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style>
+
+<script>
+let panel = document.getElementById("floatQuoteBox");
+let header = document.getElementById("quoteHeaderBar");
+let isDrag = false, offX, offY;
+header.onmousedown = function(e){
+  isDrag = true;
+  offX = e.clientX - panel.getBoundingClientRect().left;
+  offY = e.clientY - panel.getBoundingClientRect().top;
+};
+document.onmousemove = function(e){
+  if(!isDrag) return;
+  panel.style.left = e.clientX - offX + "px";
+  panel.style.top = e.clientY - offY + "px";
+  panel.style.transform = "none";
+};
+document.onmouseup = function(){ isDrag = false; };
+document.getElementById("foldToggleBtn").onclick = function(){
+  let body = document.getElementById("quoteBodyContent");
+  let btn = document.getElementById("foldToggleBtn");
+  body.style.display = body.style.display === "block" ? "none" : "block";
+  btn.textContent = body.style.display === "block" ? "-" : "+";
+};
+</script>
+
+<script src="prices.js"></script>
+
+<script>
+window.onload = function(){
+  let path = location.pathname.toLowerCase();
+  if(path.includes("-egg.html")){
+    loadProductColors("egg");
+  }else if(path.includes("christmas")){
+    loadProductColors("christmas");
+  }else if(path.includes("disco")){
+    loadProductColors("disco");
+  }else if(path.includes("heart")){
+    loadProductColors("heart");
+  }else if(path.includes("arch")){
+    loadProductColors("arch");
+  }else if(path.includes("letter")){
+    loadProductColors("letter");
+  }else if(path.includes("number")){
+    loadProductColors("number");
+  }else{
+    loadProductColors("round");
+  }
+};
+function addCurrentToQuote(){
+  let name = "Mirror Ball";
+  let p = location.pathname;
+  if(p.includes("round")) name = "Round Mirror Ball";
+  else if(p.includes("egg")) name = "Egg Mirror Ball";
+  else if(p.includes("christmas")) name = "Christmas Ball";
+  else if(p.includes("disco")) name = "Disco Ball";
+  else if(p.includes("heart")) name = "Heart Mirror Ball";
+  else if(p.includes("arch")) name = "Arch Mirror Ball";
+  else if(p.includes("letter")) name = "Letter Light";
+  else if(p.includes("number")) name = "Number Light";
+  else name = "Custom Mirror Product";
+  addToQuote(name);
+}
+</script>
 </body>
 </html>

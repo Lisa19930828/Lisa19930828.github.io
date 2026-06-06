@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Quotation List</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body {
+            background: #f0f0f0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .back-btn {
+            background: #f87a8c;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #e06678;
+        }
+        .products-btn {
+            background: #555;
+        }
+        .products-btn:hover {
+            background: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            background: #f87a8c;
+            color: #fff;
+        }
+        .total {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        button, .btn {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        button:hover, .btn:hover {
+            background: #f87a8c;
+        }
+        .btn-whatsapp {
+            background: #25d366;
+        }
+        .btn-whatsapp:hover {
+            background: #128C7E;
+        }
+        .btn-email {
+            background: #007bff;
+        }
+        .btn-email:hover {
+            background: #0056b3;
+        }
+        .btn-chat {
+            background: #6f42c1;
+        }
+        .btn-chat:hover {
+            background: #5a32a3;
+        }
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .qty-control button {
+            background: #eee;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 2px 8px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            min-width: 28px;
+        }
+        .qty-control button:hover {
+            background: #ddd;
+        }
+        .qty-control span {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .color-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            th, td { padding: 8px; font-size: 14px; }
+            .btn-group { flex-direction: column; align-items: stretch; }
+            button, .btn { text-align: center; }
+            .qty-control button { padding: 2px 6px; }
+            .top-bar { flex-direction: column; align-items: stretch; }
+            .back-buttons { justify-content: center; }
+        }
+    </style>
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {};
+        var Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6a1bf0f1e717081c2b47e9fd/1jpuiacl2';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="top-bar">
+        <div class="back-buttons">
+            <a href="index.html" class="back-btn">← Back to Home</a>
+            <a href="products.html" class="back-btn products-btn">📦 All Products</a>
+        </div>
+    </div>
+    <h1>Your Quotation List</h1>
+    <div id="quoteList">
+        <table id="quoteTable">
+            <thead>
+                <tr><th>Product</th><th>Color</th><th>Size / Price</th><th>Qty</th><th>Line Total</th><th>Remark</th><th>Action</th></tr>
+            </thead>
+            <tbody id="quoteBody"></tbody>
+        </table>
+    </div>
+    <div class="total" id="totalAmount">Total: $0.00</div>
+    <div class="btn-group">
+        <button onclick="clearAllItems()">Clear All Items</button>
+        <button id="autoFillBtn">Auto Fill Inquiry Message</button>
+        <button class="btn-email" onclick="sendInquiryEmail()">Send Inquiry By Email</button>
+        <button class="btn-whatsapp" id="whatsappBtn">Send Inquiry By WhatsApp</button>
+        <button class="btn-chat" id="onlineChatBtn">Send Inquiry By Online Chat</button>
+    </div>
+</div>
+
+<script>
+    function getCorrectProductName(rawName) {
+        // 圆形统一显示为 "Mirror Ball (Round)"
+        if (rawName === "Mirror Ball (Round)" || rawName === "Mirror Ball" || rawName === "Custom Mirror Product" || rawName.includes("Round")) {
+            return "Mirror Ball (Round)";
+        }
+        return rawName;
+    }
+
+    function getColorImgSrc(colorName) {
+        const map = {
+            "Gold": "gold", "Silver": "silver", "Black": "black", "White": "white",
+            "Red": "red", "Iridescent": "iridescent", "Purple": "purple", "Green": "green",
+            "Blue": "blue", "Orange": "orange", "Light Green": "lightgreen", "Rose Gold": "rosegold",
+            "Pearl White": "pearlwhite", "Dark Pink": "darkpink", "Light Gold": "lightgold", "Light Blue": "lightblue",
+            "Gold Egg": "gold", "Silver Egg": "silver", "Black Egg": "black", "White Egg": "white",
+            "Red Egg": "red", "Iridescent Egg": "iridescent", "Purple Egg": "purple", "Green Egg": "green",
+            "Blue Egg": "blue", "Orange Egg": "orange", "Light Green Egg": "lightgreen", "Rose Gold Egg": "rosegold",
+            "Pearl White Egg": "pearlwhite", "Dark Pink Egg": "darkpink", "Light Gold Egg": "lightgold", "Light Blue Egg": "lightblue"
+        };
+        let short = map[colorName] || "default";
+        return `images/coloricon/${short}.png`;
+    }
+
+    function getCart() { return JSON.parse(localStorage.getItem("quoteCart") || "[]"); }
+    function saveCart(cart) { localStorage.setItem("quoteCart", JSON.stringify(cart)); }
+
+    function mergeAndSaveCart() {
+        let raw = getCart();
+        let map = new Map();
+        raw.forEach(item => {
+            let key = `${getCorrectProductName(item.name)}|${item.color}|${item.size}`;
+            if (map.has(key)) {
+                let ex = map.get(key);
+                ex.qty += item.qty;
+                if (ex.unit !== "Custom") {
+                    ex.total = "$" + (parseFloat(ex.unit.replace("$","")) * ex.qty).toFixed(2);
+                }
+            } else {
+                map.set(key, {...item});
+            }
+        });
+        let arr = Array.from(map.values());
+        arr = sortCart(arr);
+        saveCart(arr);
+        return arr;
+    }
+
+    function sortCart(cart) {
+        return cart.sort((a,b) => {
+            let na = getCorrectProductName(a.name);
+            let nb = getCorrectProductName(b.name);
+
+            let g = n => {
+                if (n.includes("Round")) return 1;
+                if (n.includes("Egg")) return 2;
+                return 3;
+            };
+
+            let ra = g(na);
+            let rb = g(nb);
+            if (ra !== rb) return ra - rb;
+
+            if (ra === 3) {
+                let xa = na.includes("Christmas");
+                let xb = nb.includes("Christmas");
+                if (xa !== xb) return xa ? -1 : 1;
+            }
+
+            let ca = a.color||"";
+            let cb = b.color||"";
+            if (ca!==cb) return ca.localeCompare(cb);
+
+            let sa = a.size||"";
+            let sb = b.size||"";
+            return sa.localeCompare(sb);
+        });
+    }
+
+    function loadQuoteList() {
+        let cart = mergeAndSaveCart();
+        let tbody = document.getElementById("quoteBody");
+        tbody.innerHTML = "";
+        let total = 0;
+
+        cart.forEach(item => {
+            let pn = getCorrectProductName(item.name);
+            let lt = 0;
+            let lts = item.total;
+            if (item.unit !== "Custom" && item.total === "Custom") {
+                lt = parseFloat(item.unit.replace("$","")) * item.qty;
+                lts = "$"+lt.toFixed(2);
+            } else if (typeof lts === "string" && lts.startsWith("$")) {
+                lt = parseFloat(lts.replace("$",""));
+            }
+            total += lt;
+
+            let row = tbody.insertRow();
+            row.insertCell(0).innerText = pn;
+            let cc = row.insertCell(1);
+            cc.innerHTML = `<img src="${getColorImgSrc(item.color)}" class="color-icon" onerror="this.style.display='none'"> ${item.color}`;
+            row.insertCell(2).innerText = item.size || (item.unit === "Custom" ? "Custom Size" : item.unit);
+
+            let qc = row.insertCell(3);
+            qc.className = "qty-control";
+            let key = `${getCorrectProductName(item.name)}|${item.color}|${item.size}`;
+            let sp = document.createElement("span");
+            sp.innerText = item.qty;
+            let mi = document.createElement("button");
+            mi.innerText = "-";
+            mi.onclick = () => {
+                let c = getCart();
+                let i = c.findIndex(x=>`${getCorrectProductName(x.name)}|${x.color}|${x.size}`===key);
+                if(i===-1)return;
+                if(c[i].qty-1<=0)c.splice(i,1);
+                else { c[i].qty--; if(c[i].unit!=="Custom")c[i].total="$"+(parseFloat(c[i].unit.replace("$",""))*c[i].qty).toFixed(2); }
+                saveCart(c); loadQuoteList();
+            };
+            let pl = document.createElement("button");
+            pl.innerText = "+";
+            pl.onclick = () => {
+                let c = getCart();
+                let i = c.findIndex(x=>`${getCorrectProductName(x.name)}|${x.color}|${x.size}`===key);
+                if(i===-1)return;
+                c[i].qty++;
+                if(c[i].unit!=="Custom")c[i].total="$"+(parseFloat(c[i].unit.replace("$",""))*c[i].qty).toFixed(2);
+                saveCart(c); loadQuoteList();
+            };
+            qc.append(mi,sp,pl);
+            row.insertCell(4).innerText = lts;
+            row.insertCell(5).innerText = item.remark||"";
+            let ac = row.insertCell(6);
+            let del = document.createElement("button");
+            del.innerText = "Remove";
+            del.style.background = "#dc3545";
+            del.style.padding = "4px 8px";
+            del.style.fontSize = "12px";
+            del.onclick = () => {
+                let c = getCart();
+                let i = c.findIndex(x=>`${getCorrectProductName(x.name)}|${x.color}|${x.size}`===key);
+                if(i!==-1){c.splice(i,1);saveCart(c);loadQuoteList();}
+            };
+            ac.appendChild(del);
+        });
+
+        document.getElementById("totalAmount").innerHTML = `Total: $${total.toFixed(2)}`;
+    }
+
+    function clearAllItems() { localStorage.removeItem("quoteCart"); loadQuoteList(); }
+
+    function generateInquiryMessage() {
+        let cart = getCart();
+        if(!cart.length)return "No items";
+        let m = "Hello, please offer best price for below items:\n\n";
+        cart.forEach(i=>{
+            let pn = getCorrectProductName(i.name);
+            m += `- ${pn}, Color:${i.color}, ${i.size||i.unit}, Qty:${i.qty}, Total:${i.total}\n`;
+        });
+        return m + "\nWaiting your quotation, thanks!";
+    }
+
+    function autoFillMessage() { alert(generateInquiryMessage()); }
+    function sendInquiryEmail() {
+        let s = "Quote Request";
+        let b = generateInquiryMessage();
+        location.href = `mailto:lisa@joyfuldecoration.com?subject=${encodeURIComponent(s)}&body=${encodeURIComponent(b)}`;
+    }
+    function sendInquiryWhatsApp() {
+        window.open(`whatsapp-landing.html?msg=${encodeURIComponent(generateInquiryMessage())}`,'_blank');
+    }
+    function sendInquiryOnlineChat() {
+        if (typeof Tawk_API === 'undefined') return alert("Chat loading...");
+        Tawk_API.toggle();
+        navigator.clipboard.writeText(generateInquiryMessage()).then(()=>{
+            alert("Copied to clipboard! Please paste in chat.");
+        });
+    }
+
+    document.getElementById("autoFillBtn").onclick = autoFillMessage;
+    document.getElementById("whatsappBtn").onclick = sendInquiryWhatsApp;
+    document.getElementById("onlineChatBtn").onclick = sendInquiryOnlineChat;
+    window.addEventListener("DOMContentLoaded", loadQuoteList);
+</script>
+</body>
+</html>

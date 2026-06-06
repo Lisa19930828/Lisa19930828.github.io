@@ -110,6 +110,26 @@
         </a>
     </div>
 
+    <!-- 动态修改 WhatsApp 链接：如果 URL 带有 msg 参数，则替换默认文字 -->
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const customMsg = urlParams.get('msg');
+            if (customMsg) {
+                // 解码消息（因为传入时是 encodeURIComponent 编码的）
+                const decodedMsg = decodeURIComponent(customMsg);
+                // 修改 Lisa 和 Shanshan 的链接
+                const lisaLink = document.querySelector('a.lisa-btn');
+                const shanshanLink = document.querySelector('a.shanshan-btn');
+                if (lisaLink) {
+                    lisaLink.href = `https://wa.me/8617610999769?text=${encodeURIComponent(decodedMsg)}`;
+                }
+                if (shanshanLink) {
+                    shanshanLink.href = `https://wa.me/8613161003306?text=${encodeURIComponent(decodedMsg)}`;
+                }
+            }
+        })();
+    </script>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">

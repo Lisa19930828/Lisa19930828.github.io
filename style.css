@@ -164,3 +164,26 @@ img {
     padding: 2px 4px !important;
   }
 }
+
+/* ==============================================
+   侧边浮动报价弹窗
+   ============================================== */
+#floatQuoteBox {
+  position: fixed;
+  left: 300px; /* PC端避让左侧侧边栏 */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 250px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  z-index: 9999;
+  cursor: move;
+}
+@media (max-width:768px) {
+  #floatQuoteBox {
+    left:15px !important;
+    width:calc(100% - 30px) !important;
+  }
+}
