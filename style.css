@@ -79,7 +79,7 @@ img {
   }
   /* 表格滚动提示 */
   #quoteList::after {
-    content: "⇠ 滑动表格查看更多 ⇢";
+    content: "⇠ Swipe left/right to view more ⇢";
     display: block;
     text-align: center;
     font-size: 11px;
