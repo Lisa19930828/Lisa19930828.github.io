@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Your Quotation List</title>
+    <!-- 引入全局 CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 单独针对报价页的额外样式（可选） -->
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        /* 确保报价页容器美观 */
         body {
             background: #f0f0f0;
             padding: 40px 20px;
@@ -57,21 +60,6 @@
         .products-btn:hover {
             background: #333;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-            vertical-align: middle;
-        }
-        th {
-            background: #f87a8c;
-            color: #fff;
-        }
         .total {
             text-align: right;
             font-size: 20px;
@@ -121,6 +109,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
         .qty-control button {
             background: #eee;
@@ -148,14 +137,13 @@
         }
         @media (max-width: 768px) {
             .container { padding: 15px; }
-            th, td { padding: 8px; font-size: 14px; }
             .btn-group { flex-direction: column; align-items: stretch; }
             button, .btn { text-align: center; }
-            .qty-control button { padding: 2px 6px; }
             .top-bar { flex-direction: column; align-items: stretch; }
             .back-buttons { justify-content: center; }
         }
     </style>
+    <!-- Tawk.to 聊天脚本 -->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {};
         var Tawk_LoadStart = new Date();
@@ -178,6 +166,7 @@
         </div>
     </div>
     <h1>Your Quotation List</h1>
+    <!-- 横向滚动容器（ID匹配全局CSS） -->
     <div id="quoteList">
         <table id="quoteTable">
             <thead>
@@ -197,14 +186,15 @@
 </div>
 
 <script>
+    // 产品名称标准化
     function getCorrectProductName(rawName) {
-        // 圆形统一显示为 "Mirror Ball (Round)"
         if (rawName === "Mirror Ball (Round)" || rawName === "Mirror Ball" || rawName === "Custom Mirror Product" || rawName.includes("Round")) {
             return "Mirror Ball (Round)";
         }
         return rawName;
     }
 
+    // 颜色图标路径
     function getColorImgSrc(colorName) {
         const map = {
             "Gold": "gold", "Silver": "silver", "Black": "black", "White": "white",
@@ -220,9 +210,11 @@
         return `images/coloricon/${short}.png`;
     }
 
+    // localStorage 操作
     function getCart() { return JSON.parse(localStorage.getItem("quoteCart") || "[]"); }
     function saveCart(cart) { localStorage.setItem("quoteCart", JSON.stringify(cart)); }
 
+    // 合并相同项并排序
     function mergeAndSaveCart() {
         let raw = getCart();
         let map = new Map();
@@ -248,33 +240,25 @@
         return cart.sort((a,b) => {
             let na = getCorrectProductName(a.name);
             let nb = getCorrectProductName(b.name);
-
             let g = n => {
                 if (n.includes("Round")) return 1;
                 if (n.includes("Egg")) return 2;
                 return 3;
             };
-
-            let ra = g(na);
-            let rb = g(nb);
+            let ra = g(na), rb = g(nb);
             if (ra !== rb) return ra - rb;
-
             if (ra === 3) {
-                let xa = na.includes("Christmas");
-                let xb = nb.includes("Christmas");
+                let xa = na.includes("Christmas"), xb = nb.includes("Christmas");
                 if (xa !== xb) return xa ? -1 : 1;
             }
-
-            let ca = a.color||"";
-            let cb = b.color||"";
-            if (ca!==cb) return ca.localeCompare(cb);
-
-            let sa = a.size||"";
-            let sb = b.size||"";
+            let ca = a.color||"", cb = b.color||"";
+            if (ca !== cb) return ca.localeCompare(cb);
+            let sa = a.size||"", sb = b.size||"";
             return sa.localeCompare(sb);
         });
     }
 
+    // 渲染报价列表
     function loadQuoteList() {
         let cart = mergeAndSaveCart();
         let tbody = document.getElementById("quoteBody");
@@ -340,7 +324,6 @@
             };
             ac.appendChild(del);
         });
-
         document.getElementById("totalAmount").innerHTML = `Total: $${total.toFixed(2)}`;
     }
 
@@ -348,7 +331,7 @@
 
     function generateInquiryMessage() {
         let cart = getCart();
-        if(!cart.length)return "No items";
+        if(!cart.length) return "No items";
         let m = "Hello, please offer best price for below items:\n\n";
         cart.forEach(i=>{
             let pn = getCorrectProductName(i.name);
@@ -378,6 +361,79 @@
     document.getElementById("whatsappBtn").onclick = sendInquiryWhatsApp;
     document.getElementById("onlineChatBtn").onclick = sendInquiryOnlineChat;
     window.addEventListener("DOMContentLoaded", loadQuoteList);
+</script>
+
+<!-- 可拖动浮窗脚本（如果其他页面存在 #floatQuoteBox 则生效，本页面没有也不会报错） -->
+<script>
+(function() {
+  var box = document.getElementById('floatQuoteBox');
+  if (!box) return;
+
+  function initPosition() {
+    var rect = box.getBoundingClientRect();
+    box.style.position = 'fixed';
+    box.style.left = rect.left + 'px';
+    box.style.top = rect.top + 'px';
+    box.style.right = 'auto';
+    box.style.bottom = 'auto';
+    box.style.transform = 'none';
+  }
+  initPosition();
+
+  var startX = 0, startY = 0;
+  var startLeft = 0, startTop = 0;
+  var isDragging = false;
+
+  function onStart(e) {
+    e.preventDefault();
+    var point = e.touches ? e.touches[0] : e;
+    startX = point.clientX;
+    startY = point.clientY;
+    startLeft = parseInt(box.style.left, 10) || 0;
+    startTop = parseInt(box.style.top, 10) || 0;
+    isDragging = true;
+    document.body.style.userSelect = 'none';
+  }
+
+  function onMove(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    var point = e.touches ? e.touches[0] : e;
+    var dx = point.clientX - startX;
+    var dy = point.clientY - startY;
+    var newLeft = startLeft + dx;
+    var newTop = startTop + dy;
+    var maxX = window.innerWidth - box.offsetWidth;
+    var maxY = window.innerHeight - box.offsetHeight;
+    newLeft = Math.min(Math.max(0, newLeft), maxX);
+    newTop = Math.min(Math.max(0, newTop), maxY);
+    box.style.left = newLeft + 'px';
+    box.style.top = newTop + 'px';
+  }
+
+  function onEnd() {
+    isDragging = false;
+    document.body.style.userSelect = '';
+  }
+
+  box.addEventListener('mousedown', onStart);
+  box.addEventListener('touchstart', onStart, { passive: false });
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('touchmove', onMove, { passive: false });
+  window.addEventListener('mouseup', onEnd);
+  window.addEventListener('touchend', onEnd);
+
+  window.addEventListener('resize', function() {
+    var left = parseInt(box.style.left, 10);
+    var top = parseInt(box.style.top, 10);
+    var maxX = window.innerWidth - box.offsetWidth;
+    var maxY = window.innerHeight - box.offsetHeight;
+    if (left > maxX) box.style.left = maxX + 'px';
+    if (top > maxY) box.style.top = maxY + 'px';
+    if (left < 0) box.style.left = '0px';
+    if (top < 0) box.style.top = '0px';
+  });
+})();
 </script>
 </body>
 </html>
